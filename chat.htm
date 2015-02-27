@@ -1,0 +1,38 @@
+<html><body><title>Persistent Group Chat</title>
+<style>textarea{width:100%;}#x{width:50%}</style>
+<form action="">
+    <input type="text" id="user" placeholder="Name">
+    <input type="text" id="x" autofocus placeholder="Message" width=50%>
+    <input type="submit" value="Send" onclick="return send()">
+</form>
+<textarea id="out" rows=25 readonly></textarea>
+<script>
+var user=(document.getElementById("user").value=document.cookie.split(";")[0].split("=")[1]||""),ws,out=document.getElementById("out");
+function connect(cb){
+    if("WebSocket" in window){
+        ws=new WebSocket("ws://"+window.location.host);
+        out.value+="Connecting...\n";
+        ws.onopen=function(e){out.value+="Connected.\n"; refresh=true; cb();}
+        ws.onclose=function(e){out.value+="Disconnected. Send a message or refresh to reconnect.\n";}
+        ws.onmessage=function(e){
+            if(refresh){
+                out.value=e.data+"\n\n";
+                refresh=false;
+            }else out.value+=e.data+"\n";
+            out.scrollTop=out.scrollHeight;
+        }
+        ws.onerror=function(e){out.value+=e.data+"\n";}
+    }else alert("WebSockets not supported by your browser.");
+}
+function send(){
+    if(ws.readyState!==1)connect(send);
+    else{
+        x=document.getElementById("x");
+        user=(document.getElementById("user").value||""); document.cookie="user="+user;
+        ws.send("<"+user+"> "+x.value);
+        x.value=""; x.focus();
+    }
+    return false;
+}
+connect(function(){});
+</script></body></html>

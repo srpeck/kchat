@@ -1,11 +1,11 @@
 <html><body><title>Persistent Group Chat</title>
-<style>textarea{width:100%;}#x{width:50%}</style>
+<style>textarea{height:90%;width:100%;border:none;outline:none}#x{width:50%}</style>
 <form action="">
     <input type="text" id="user" placeholder="Name">
-    <input type="text" id="x" autofocus placeholder="Message" width=50%>
+    <input type="text" id="x" autofocus autocomplete="off" placeholder="Message" width=50%>
     <input type="submit" value="Send" onclick="return send()">
 </form>
-<textarea id="out" rows=25 readonly></textarea>
+<textarea id="out" readonly></textarea>
 <script>
 var user=(document.getElementById("user").value=document.cookie.split(";")[0].split("=")[1]||""),ws,out=document.getElementById("out");
 function connect(cb){

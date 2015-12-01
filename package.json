@@ -1,0 +1,22 @@
+{
+  "name": "kchat",
+  "version": "0.0.0",
+  "description": "NodeJS persistent group chat",
+  "main": "chat.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/srpeck/kchat.git"
+  },
+  "author": "srpeck",
+  "license": "None",
+  "bugs": {
+    "url": "https://github.com/srpeck/kchat/issues"
+  },
+  "dependencies": {
+    "websocket": "^1.0.22"
+  },
+  "devDependencies": {}
+}
